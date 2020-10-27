@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style> 
+    body h1{
+	   margin : 100px 20px 20px 20px;
+	}
+	
+	.heading{
+	   font-family=":Arial,Helvetica,sans-serif";
+	   font-size:16px;
+	}
+
+</style>
+<script>
+	function filter()
+	{
+		var xmlhttp;
+		var userwords = document.getElementById('word');
+		var custwordlist = document.getElementById('custwordlist');
+		if (window.XMLHttpRequest){
+		  xmlhttp=new XMLHttpRequest();
+		}
+		else{
+		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange=function(){
+		  if (xmlhttp.readyState==4 && xmlhttp.status==200){
+			userwords.value=xmlhttp.responseText;
+			}
+		}
+		xmlhttp.open("GET","wordprocessing.php?q="+userwords.value+"&w="+custwordlist.value,true);	  
+		xmlhttp.send();
+	}
+</script>
+</head>
+
+<body>
+   <div align="center">
+    <h1>My Word Filter Application</h1>
+	<p style="color:grey;">The default list of words will be filtered is: "maverick","ranger","rocket","chicago","bear","wizard","seattle",<br/>"atlanta","miami","austin","boston","pittsburgh","heat","saint","hawk","king".</p>
+	<h3 class="heading">Please enter your text below.</h3>
+	<input type="text" id="word" size="45" autofocus/> 
+	<h3 class="heading">Please enter new wordlist you want to filter here (separate by whitespace). </h3>
+	<input type="text" id="custwordlist" size="45"/> <br/><br/>
+	<input type="submit" value = "Submit"  onclick="filter()"/>
+  </div>
+</body>
+</html>
